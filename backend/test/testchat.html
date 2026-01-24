@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<body>
+  <div id="response"></div>
+  <script>
+    fetch('http://localhost:3000/api/chat', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({user: 'user', message: 'Why is the sky blue?'})
+    }).then(response => {
+      const reader = response.body.getReader();
+      const decoder = new TextDecoder();
+      
+      function read() {
+        reader.read().then(({done, value}) => {
+          if (done) return;
+          document.getElementById('response').innerHTML += decoder.decode(value);
+          read();
+        });
+      }
+      read();
+    });
+  </script>
+</body>
+</html>

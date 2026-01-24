@@ -1,8 +1,10 @@
-const express = require("express");
+import express from "express";
 const router = express.Router();
-const chatCompletion = require("../chat_completion");
+import { chatCompletion } from "../controllers/chat_completion.js";
 
-
+router.get('/chat',(req,res) => {
+    res.send('This is chat route');
+})
 router.post('/chat' ,chatCompletion);
 
-module.exports = router;
+export default router;
